@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách sản phẩm</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .container {
+      width: 85%;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    /* Form tìm kiếm */
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .search-bar input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    .search-bar input[type="text"]:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    }
+    .search-bar button {
+      padding: 10px 16px;
+      border: none;
+      background: #007BFF;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .search-bar button:hover {
+      background: #0056b3;
+    }
+    .search-bar a {
+      padding: 10px 16px;
+      background: #6c757d;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .search-bar a:hover {
+      background: #5a6268;
+    }
+
+    /* Nút thêm sản phẩm */
+    .add-product {
+      margin-bottom: 15px;
+    }
+    .add-product a {
+      display: inline-block;
+      padding: 10px 16px;
+      background: #28a745;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .add-product a:hover {
+      background: #218838;
+    }
+
+    /* Bảng sản phẩm */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: center;
+    }
+    th {
+      background: #f8f9fa;
+      color: #495057;
+    }
+    tr:hover {
+      background: #f1f3f5;
+    }
+
+    /* Hành động */
+    .actions a,
+    .actions button {
+      padding: 6px 12px;
+      font-size: 13px;
+      border-radius: 4px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      margin: 0 2px;
+      transition: 0.3s;
+    }
+    .actions a {
+      color: #fff;
+    }
+    .actions a.view {
+      background: #17a2b8;
+    }
+    .actions a.view:hover {
+      background: #117a8b;
+    }
+    .actions a.edit {
+      background: #ffc107;
+      color: #212529;
+    }
+    .actions a.edit:hover {
+      background: #e0a800;
+    }
+    .actions button {
+      background: #dc3545;
+      color: #fff;
+    }
+    .actions button:hover {
+      background: #bd2130;
+    }
+  </style>
+</head>
+<body>
+<h1>Danh sách sản phẩm</h1>
+
+<div class="container">
+
+  <form th:action="@{/products}" method="get" class="search-bar">
+    <input type="text" name="keyword" placeholder="Nhập tên sản phẩm..."
+           th:value="${keyword}">
+    <button type="submit">Tìm kiếm</button>
+    <a th:href="@{/products}">Xóa filter</a>
+  </form>
+
+  <div class="add-product">
+    <a th:href="@{/products/create}">+ Thêm sản phẩm mới</a>
+  </div>
+
+  <div th:if="${message}"
+       style="padding: 10px; margin-bottom: 15px; border-radius: 6px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+    <p th:text="${message}"></p>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên sản phẩm</th>
+      <th>Giá</th>
+      <th>Mô tả</th>
+      <th>Nhà sản xuất</th>
+      <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(products)}">
+      <td colspan="6">Không có sản phẩm nào</td>
+    </tr>
+    <tr th:each="product : ${products}">
+      <td th:text="${product.id}">1</td>
+      <td th:text="${product.name}">Tên</td>
+      <td th:text="${product.price}">0.0</td>
+      <td th:text="${product.describe}">Mô tả</td>
+      <td th:text="${product.manufacturer}">NSX</td>
+      <td class="actions">
+        <a class="view" th:href="@{'/products/view/' + ${product.id}}">Xem</a>
+        <a class="edit" th:href="@{'/products/update/' + ${product.id}}">Sửa</a>
+        <form th:action="@{'/products/delete/' + ${product.id}}" method="post"
+              onsubmit="return confirm('Bạn có chắc muốn xóa?');" style="display:inline;">
+          <button type="submit">Xóa</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
