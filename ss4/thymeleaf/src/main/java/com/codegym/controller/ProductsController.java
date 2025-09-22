@@ -1,6 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.entity.Product;
+import com.codegym.exception.ProductsNotFoundException;
 import com.codegym.service.IProductsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,6 +74,9 @@ public class ProductsController {
     @GetMapping("/update/{id}")
     public String showUpdate(@PathVariable("id") Integer id, Model model) {
         Product product = service.findById(id);
+        if (id == null){
+            throw new ProductsNotFoundException("Không tìm thấy sản phẩm với id: " + id);
+        }
         if (product == null) {
             return "redirect:/products";
         }
