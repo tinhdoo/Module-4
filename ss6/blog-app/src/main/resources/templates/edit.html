@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa bài viết</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<style>
+    /* Reset cơ bản */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #f0f4f8, #d9e4ec);
+        padding: 20px;
+        color: #333;
+    }
+
+    /* Tiêu đề */
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #1e3d59;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    /* Khung chứa form */
+    .container {
+        width: 90%;
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Form */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    form label {
+        font-weight: 600;
+        color: #444;
+    }
+
+    form input[type="text"],
+    form textarea,
+    form select {
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+    form input[type="text"]:focus,
+    form textarea:focus,
+    form select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 6px rgba(0,123,255,0.3);
+        outline: none;
+    }
+
+    form textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    /* Nút bấm */
+    form button {
+        align-self: flex-start;
+        padding: 10px 18px;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    form button:hover {
+        background: #0056b3;
+    }
+
+    /* Link quay lại */
+    form a {
+        display: inline-block;
+        padding: 10px 16px;
+        background: #6c757d;
+        color: #fff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+
+    form a:hover {
+        background: #5a6268;
+    }
+
+</style>
+<body>
+<h1>Chỉnh sửa bài viết</h1>
+
+<div class="container">
+    <form th:action="@{/blogs/update}" method="post" th:object="${blog}">
+        <input type="hidden" th:field="*{id}">
+
+        <label>Tiêu đề:</label>
+        <input type="text" th:field="*{title}" required>
+
+        <label>Nội dung:</label>
+        <textarea th:field="*{content}" required></textarea>
+
+        <label>Tác giả:</label>
+        <input type="text" th:field="*{author}" required>
+
+        <label>Trạng thái:</label>
+        <select th:field="*{status}">
+            <option value="PUBLISHED">Đã xuất bản</option>
+            <option value="DRAFT">Bản nháp</option>
+        </select>
+
+        <button type="submit">Cập nhật</button>
+        <a th:href="@{/blogs}">Quay lại</a>
+    </form>
+</div>
+</body>
+</html>

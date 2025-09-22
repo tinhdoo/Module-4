@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lỗi</title>
+</head>
+<style>
+    /* Reset cơ bản */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #f8d7da, #f0f4f8);
+        padding: 20px;
+        color: #721c24;
+    }
+
+    /* Tiêu đề lỗi */
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #b71c1c;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    /* Khung thông báo lỗi */
+    .error-box {
+        max-width: 600px;
+        margin: auto;
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+
+    /* Nội dung thông báo */
+    .error-box p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    /* Nút quay lại */
+    .error-box a {
+        display: inline-block;
+        padding: 10px 18px;
+        background: #6c757d;
+        color: #fff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+
+    .error-box a:hover {
+        background: #5a6268;
+    }
+
+</style>
+<body>
+    <h1>Đã xảy ra lỗi</h1>
+    <p th:text="${errorMessage}"></p>
+    <a th:href="@{/blogs}">Quay lại danh sách</a>
+</body>
+</html>

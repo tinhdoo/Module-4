@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa sản phẩm</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #c82333;
+            margin-bottom: 20px;
+        }
+        .product-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .product-info p {
+            margin: 8px 0;
+        }
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .actions button,
+        .actions a {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .actions button {
+            background: #dc3545;
+            color: #fff;
+        }
+        .actions button:hover {
+            background: #b02a37;
+        }
+        .actions a {
+            background: #6c757d;
+            color: #fff;
+        }
+        .actions a:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Bạn có chắc muốn xóa sản phẩm này?</h2>
+
+    <!-- Thông tin sản phẩm -->
+    <div class="product-info">
+        <p><strong>ID:</strong> <span th:text="${product.id}">1</span></p>
+        <p><strong>Tên:</strong> <span th:text="${product.name}">Tên sản phẩm</span></p>
+        <p><strong>Giá:</strong> <span th:text="${product.price}">0.0</span></p>
+        <p><strong>Mô tả:</strong> <span th:text="${product.describe}">Mô tả sản phẩm</span></p>
+        <p><strong>Nhà sản xuất:</strong> <span th:text="${product.manufacturer}">NSX</span></p>
+    </div>
+
+    <!-- Form xác nhận xóa -->
+    <form th:action="@{'/products/delete/' + ${product.id}}" method="post" class="actions">
+        <button type="submit">Xóa</button>
+        <a th:href="@{/products}">Hủy</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Viết bài mới</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Viết bài mới</h1>
+
+<div class="container">
+    <form th:action="@{/blogs}" method="post" th:object="${blog}">
+        <label>Tiêu đề:</label>
+        <input type="text" th:field="*{title}" required>
+
+        <label>Nội dung:</label>
+        <textarea th:field="*{content}" required></textarea>
+
+        <label>Tác giả:</label>
+        <input type="text" th:field="*{author}" required>
+
+        <label>Trạng thái:</label>
+        <select th:field="*{status}">
+            <option value="PUBLISHED">Đã xuất bản</option>
+            <option value="DRAFT">Bản nháp</option>
+        </select>
+
+        <button type="submit">Đăng bài</button>
+        <a th:href="@{/blogs}">Quay lại</a>
+    </form>
+</div>
+</body>
+</html>

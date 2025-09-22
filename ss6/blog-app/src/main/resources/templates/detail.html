@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết bài viết</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #d9e4ec);
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        h1 {
+            color: #1e3d59;
+            margin-bottom: 15px;
+        }
+        .meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .content {
+            font-size: 16px;
+            line-height: 1.6;
+            white-space: pre-line; /* giữ xuống dòng */
+            margin-bottom: 30px;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .actions a {
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .back {
+            background: #6c757d;
+            color: #fff;
+        }
+        .back:hover {
+            background: #5a6268;
+        }
+        .edit {
+            background: #ffc107;
+            color: #212529;
+        }
+        .edit:hover {
+            background: #e0a800;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 th:text="${blog.title}">Tiêu đề bài viết</h1>
+
+    <div class="meta">
+        <span>Tác giả: <strong th:text="${blog.author}">Tên tác giả</strong></span> |
+        <span>Ngày đăng:
+            <strong th:text="${blog.date != null ? #temporals.format(blog.date, 'dd/MM/yyyy') : ''}"></strong>
+        </span> |
+        <span>Trạng thái: <strong th:text="${blog.status}"></strong></span>
+    </div>
+
+    <div class="content" th:text="${blog.content}">
+        Nội dung bài viết...
+    </div>
+
+    <div class="actions">
+        <a th:href="@{/blogs}" class="back">Quay lại</a>
+        <a th:href="@{/blogs/edit/{id}(id=${blog.id})}" class="edit">Chỉnh sửa</a>
+    </div>
+</div>
+
+</body>
+</html>
