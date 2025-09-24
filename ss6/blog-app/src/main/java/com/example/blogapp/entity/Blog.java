@@ -30,4 +30,7 @@ public class Blog {
     @Column(name = "status")
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "id_cag", referencedColumnName = "id_cag")
+    private Category category;
 }

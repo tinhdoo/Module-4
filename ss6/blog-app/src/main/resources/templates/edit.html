@@ -37,7 +37,7 @@
         background: #fff;
         padding: 25px;
         border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     }
 
     /* Form */
@@ -66,7 +66,7 @@
     form textarea:focus,
     form select:focus {
         border-color: #007bff;
-        box-shadow: 0 0 6px rgba(0,123,255,0.3);
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
         outline: none;
     }
 
@@ -124,6 +124,15 @@
 
         <label>Tác giả:</label>
         <input type="text" th:field="*{author}" required>
+
+        <label>Danh mục:</label>
+        <select th:field="*{category.id_cag}">
+            <option value="" disabled selected>-- Chọn danh mục --</option>
+            <option th:each="cat : ${categories}"
+                    th:value="${cat.id_cag}"
+                    th:text="${cat.name_cag}">
+            </option>
+        </select>
 
         <label>Trạng thái:</label>
         <select th:field="*{status}">

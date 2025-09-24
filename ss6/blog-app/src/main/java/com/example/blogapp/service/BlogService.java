@@ -22,7 +22,7 @@ public class BlogService implements IBlogService {
         return repository.findAll();
     }
 
-    public void createBlog(Blog blog) {
+    public void saveBlog(Blog blog) {
         if (blog == null) {
             throw new IllegalArgumentException("Blog không được null");
         }
@@ -31,7 +31,7 @@ public class BlogService implements IBlogService {
         }
         try {
             repository.save(blog);
-        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException("Nội dung quá dài hoặc vi phạm ràng buộc dữ liệu", e);
         }
     }
