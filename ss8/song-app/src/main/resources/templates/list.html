@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h2>Danh sách bài hát</h2>
+<table>
+    <tr>
+        <td>STT:</td>
+        <td>Tên bài hát:</td>
+        <td>Nghệ sĩ thể hiện:</td>
+        <td>Thể loại:</td>
+    </tr>
+    <tr th:each="song, temp : ${songs}">
+        <td th:text="${temp.count}"></td>
+        <td th:text="${song.name}"></td>
+        <td th:text="${song.singer}"></td>
+        <td th:text="${song.type}"></td>
+        <td>
+            <a th:href="@{/songs/update/{id}(id=${song.id})}">
+                <button type="button">Sửa</button>
+            </a></td>
+
+    </tr>
+    <tr>
+        <a th:href="@{/songs/create}">
+            <button type="button">Thêm</button>
+        </a>
+
+    </tr>
+</table>
+</body>
+</html>

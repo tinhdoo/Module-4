@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm bài hát</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            background: #fff;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 700px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            background: #4CAF50;
+            color: #fff;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .err {
+            color: red;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/songs/create}" method="post" th:object="${songDto}">
+    <table>
+        <tr>
+            <td colspan="3"><h2>Thêm bài hát</h2></td>
+        </tr>
+        <tr>
+            <td>
+                Nhập tên bài hát:
+                <input type="text" th:field="*{name}" required>
+                <small class="err" th:errors="*{name}"></small>
+            </td>
+            <td>
+                Nhập nghệ sĩ trình bày:
+                <input type="text" th:field="*{singer}" required>
+                <small class="err" th:errors="*{singer}"></small>
+            </td>
+            <td>
+                Thể loại:
+                <input type="text" th:field="*{type}" required>
+                <small class="err" th:errors="*{type}"></small>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align: center; padding-top: 10px;">
+                <button type="submit">Thêm bài hát</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
