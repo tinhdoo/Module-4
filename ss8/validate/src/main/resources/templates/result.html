@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Users</title>
+</head>
+<body>
+<h2>Danh sách Users</h2>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>STT</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Phone number</th>
+        <th>Date of birth</th>
+        <th>Email</th>
+    </tr>
+    <tr th:each="user, temp : ${users}">
+        <td th:text="${temp.count}"></td>
+        <td th:text="${user.first_name}"></td>
+        <td th:text="${user.last_name}"></td>
+        <td th:text="${user.phone_number}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.email}"></td>
+    </tr>
+</table>
+</body>
+</html>

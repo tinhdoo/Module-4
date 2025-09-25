@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Form nhập User</title>
+</head>
+<body>
+<h2>Thêm User</h2>
+
+<form th:action="@{/form/create}" th:object="${userDto}" method="post">
+    <table>
+        <tr>
+            <td>
+                <label>First name: </label>
+                <input type="text" th:field="*{first_name}">
+                <small class="err" th:errors="*{first_name}"></small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Last name: </label>
+                <input type="text" th:field="*{last_name}">
+                <small class="err" th:errors="*{last_name}"></small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Phone number: </label>
+                <input type="text" th:field="*{phone_number}">
+                <small class="err" th:errors="*{phone_number}"></small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Date of birth: </label>
+                <input type="date" th:field="*{age}">
+                <small class="err" th:errors="*{age}"></small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Email: </label>
+                <input type="email" th:field="*{email}">
+                <small class="err" th:errors="*{email}"></small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Save</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
+</body>
+</html>
