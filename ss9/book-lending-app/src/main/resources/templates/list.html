@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư viện sách</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+            padding: 30px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #222;
+            font-size: 32px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .top-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .return-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 65, 108, 0.4);
+        }
+
+        .return-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(255, 65, 108, 0.6);
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            width: 95%;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: center;
+        }
+
+        th {
+            background: linear-gradient(45deg, #0077cc, #00c6ff);
+            color: white;
+            font-size: 17px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        td {
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            color: #333;
+            transition: background 0.3s ease;
+        }
+
+        tr:hover td {
+            background-color: #f0f8ff;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9fbff;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            background: linear-gradient(45deg, #28a745, #5ddc5d);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 14px rgba(40, 167, 69, 0.5);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+<h2>📚 Thư viện sách</h2>
+
+<div class="top-actions">
+    <a th:href="@{/books/return}">
+        <button type="button" class="return-btn">
+            Trả sách
+        </button>
+    </a>
+</div>
+
+<table>
+    <tr>
+        <th>STT</th>
+        <th>Tên sách</th>
+        <th>Số lượng</th>
+        <th>Hành động</th>
+    </tr>
+
+    <tr th:each="book, temp : ${books}">
+        <td th:text="${temp.count}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.quantity}"></td>
+        <td>
+            <a th:href="@{/books/bookDetail/{id}(id=${book.id})}">
+                <button type="button" th:disabled="${book.quantity == 0}">
+                    Mượn sách
+                </button>
+            </a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

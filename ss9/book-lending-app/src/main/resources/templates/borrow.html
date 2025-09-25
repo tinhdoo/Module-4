@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mượn sách thành công</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            width: 480px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            color: #28a745;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+            color: #333;
+        }
+
+        th {
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9fbff;
+        }
+
+        .code {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            letter-spacing: 4px;
+            margin: 20px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+        }
+
+        a:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #0056b3, #0099ff);
+            box-shadow: 0 6px 16px rgba(0,123,255,0.5);
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Bạn đã mượn sách thành công ✅</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tiêu đề</th>
+            <th>Số lượng còn lại</th>
+        </tr>
+        <tr>
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.quantity}"></td>
+        </tr>
+    </table>
+
+    <p>Mã mượn sách của bạn là:</p>
+    <div class="code" th:text="${code}"></div>
+
+    <p>Hãy lưu mã này để dùng khi trả sách.</p>
+
+    <a th:href="@{/books}">⬅ Quay lại thư viện</a>
+</div>
+</body>
+</html>

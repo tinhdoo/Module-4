@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sách</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+            margin: 0;
+            padding: 30px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            color: #222;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 70%;
+            margin: 0 auto 30px auto;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+            color: #333;
+        }
+
+        th {
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+            color: white;
+            font-size: 17px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9fbff;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #28a745, #5ddc5d);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
+        button:hover:enabled {
+            transform: scale(1.08);
+            background: linear-gradient(45deg, #218838, #4ecb4e);
+            box-shadow: 0 6px 16px rgba(40, 167, 69, 0.5);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+    </style>
+</head>
+<body>
+<h2>Chi tiết sách</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Tiêu đề</th>
+        <th>Số lượng còn lại</th>
+    </tr>
+    <tr>
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.quantity}"></td>
+    </tr>
+</table>
+
+<form th:action="@{/books/borrow/{id}(id=${book.id})}" method="post">
+    <button type="submit"
+            th:disabled="${book.quantity == 0}">
+        Mượn sách
+    </button>
+</form>
+
+
+</body>
+</html>
