@@ -1,9 +1,13 @@
 package com.example.booklendingapp.service;
 
+import com.example.booklendingapp.exception.BookNotFoundException;
+import com.example.booklendingapp.exception.BookUnavailableException;
+import com.example.booklendingapp.exception.CodeNotFoundException;
 import com.example.booklendingapp.model.Book;
 import com.example.booklendingapp.model.Borrow;
 import com.example.booklendingapp.repository.IBookRepository;
 import com.example.booklendingapp.repository.IBorrowRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -31,10 +35,10 @@ public class BookService implements IBookService {
     @Override
     public String borrowBook(Integer id) {
         Book book = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy sách!"));
+                .orElseThrow(() -> new BookNotFoundException("Không tìm thấy sách!"));
 
         if (book.getQuantity() <= 0) {
-            throw new RuntimeException("Sách đã hết, không thể mượn!");
+            throw new BookUnavailableException("Sách đã hết, không thể mượn!");
         }
 
         book.setQuantity(book.getQuantity() - 1);
@@ -53,10 +57,10 @@ public class BookService implements IBookService {
     @Override
     public void returnBook(String code) {
         Borrow borrow = borrowRepository.findByCode(code)
-                .orElseThrow(() -> new RuntimeException("Mã mượn sách không hợp lệ!"));
+                .orElseThrow(() -> new CodeNotFoundException("Mã mượn sách không hợp lệ!"));
 
         if (borrow.isReturned()) {
-            throw new RuntimeException("Sách đã được trả rồi!");
+            throw new BookUnavailableException("Sách đã được trả rồi!");
         }
 
         Book book = borrow.getBook();

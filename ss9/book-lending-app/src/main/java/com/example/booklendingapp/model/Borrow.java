@@ -24,6 +24,6 @@ public class Borrow {
     private boolean returned;
 
     @ManyToOne
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "bookId")
     private Book book;
 }

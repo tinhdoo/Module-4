@@ -17,9 +17,9 @@
     </tr>
     <tr th:each="user, temp : ${users}">
         <td th:text="${temp.count}"></td>
-        <td th:text="${user.first_name}"></td>
-        <td th:text="${user.last_name}"></td>
-        <td th:text="${user.phone_number}"></td>
+        <td th:text="${user.getFirstName}"></td>
+        <td th:text="${user.getLastName}"></td>
+        <td th:text="${user.getPhoneNumber}"></td>
         <td th:text="${user.age}"></td>
         <td th:text="${user.email}"></td>
     </tr>
