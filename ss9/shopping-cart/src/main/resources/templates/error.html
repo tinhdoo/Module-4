@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Page Not Found</title>
@@ -52,7 +52,7 @@
 <body>
 <div class="container">
     <h1>404</h1>
-    <p>Oops! The page you're looking for doesn't exist.</p>
+    <p th:text="${errMess}">Oops! The page you're looking for doesn't exist.</p>
     <a href="/shop">← Back to Shop</a>
 </div>
 </body>
