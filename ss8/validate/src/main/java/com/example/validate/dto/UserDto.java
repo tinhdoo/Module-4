@@ -21,16 +21,16 @@ public class UserDto {
     private Integer id;
 
     @Pattern(regexp = "^[A-Za-zÀ-ỹà-ỹ\\\\s]{3,10}$", message = "Tên phải viết hoa chữ cái đầu và nằm trong khoản từ 3-10!")
-    @Column(name = "first_name")
-    private String first_name;
+    @Column(name = "firstName")
+    private String firstName;
 
     @Pattern(regexp = "^[A-Za-zÀ-ỹà-ỹ\\\\s ]{2,10}$", message = "Họ phải viết hoa chữ cái đầu và nằm trong khoản từ 2-10!")
-    @Column(name = "last_name")
-    private String last_name;
+    @Column(name = "lastName")
+    private String lastName;
 
     @Pattern(regexp = "^(0|\\\\+84)[0-9]{9}$", message = "Số điện thoại phải viết đúng định dạng 0xxxxxxxxx")
-    @Column(name = "phone_number")
-    private String phone_number;
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
 
 
     @Column(name = "age")

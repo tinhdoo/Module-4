@@ -34,7 +34,7 @@ public class FormController {
 
     @GetMapping("/create")
     public String createUser(ModelMap modelMap){
-        modelMap.addAttribute("userDto", new UserDto()); // ✅ khớp với form
+        modelMap.addAttribute("userDto", new UserDto());
         return "index";
     }
 

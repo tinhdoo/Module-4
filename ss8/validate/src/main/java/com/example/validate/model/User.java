@@ -19,11 +19,11 @@ public class User {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "first_name")
+    @Column(name = "firstName")
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "lastName")
     private String lastName;
-    @Column(name = "phone_number")
+    @Column(name = "phoneNumber")
     private String phoneNumber;
     @Column(name = "age")
     private LocalDate age;
