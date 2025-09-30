@@ -53,4 +53,8 @@ public class BlogService implements IBlogService {
         }
         repository.deleteById(id);
     }
+    @Override
+    public List<Blog> getBlogsByCategory(Integer categoryId) {
+        return repository.findByCategoryId(categoryId);
+    }
 }
