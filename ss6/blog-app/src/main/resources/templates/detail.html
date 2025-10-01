@@ -72,7 +72,7 @@
             <strong th:text="${blog.date != null ? #temporals.format(blog.date, 'dd/MM/yyyy') : ''}"></strong>
         </span> |
         <span>Danh mục:
-            <strong th:text="${blog.category != null} ? ${blog.category.name_cag} : 'Không có'"></strong>
+            <strong th:text="${blog.category != null} ? ${blog.category.getNameCag} : 'Không có'"></strong>
         </span> |
         <span>Trạng thái: <strong th:text="${blog.status}"></strong></span>
     </div>

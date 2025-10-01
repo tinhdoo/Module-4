@@ -4,6 +4,8 @@ import com.example.blogapp.entity.Blog;
 import com.example.blogapp.entity.Category;
 import com.example.blogapp.service.BlogService;
 import com.example.blogapp.service.CategoryService;
+import com.example.blogapp.service.IBlogService;
+import com.example.blogapp.service.ICategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,10 @@ import java.time.LocalDate;
 @Controller
 @RequestMapping("/blogs")
 public class BlogController {
-    private final BlogService service;
+    private final IBlogService service;
 
 
-    private final CategoryService categoryService;
+    private final ICategoryService categoryService;
 
     public BlogController(BlogService service, CategoryService categoryService) {
         this.service = service;
@@ -42,8 +44,7 @@ public class BlogController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Integer id, Model model) {
         Blog blog = service.getBlogById(id);
-        Category category = categoryService.getCategoryById(id);
-        if (blog == null && category == null) {
+        if (blog == null) {
             return "redirect:/blogs";
         }
         model.addAttribute("blog", blog);

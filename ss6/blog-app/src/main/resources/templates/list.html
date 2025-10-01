@@ -184,13 +184,13 @@
     </select>
 
     <label>Danh mục:</label>
-    <select th:field="*{category.id_cag}">
-        <option value="" disabled selected>-- Chọn danh mục --</option>
-        <option th:each="cat : ${categories}"
-                th:value="${cat.id_cag}"
-                th:text="${cat.name_cag}">
-        </option>
-    </select>
+        <select th:field="*{category}">
+            <option value="" disabled selected>-- Chọn danh mục --</option>
+            <option th:each="cat : ${categories}"
+                    th:value="${cat.idCag}"
+                    th:text="${cat.nameCag}">
+            </option>
+        </select>
 
     <button type="submit">Đăng bài</button>
     </form>
@@ -212,7 +212,7 @@
         <tr th:each="blog : ${blogs}">
             <td th:text="${blog.title}"></td>
             <td th:text="${#temporals.format(blog.date, 'dd/MM/yyyy')}"></td>
-            <td th:text="${blog.category != null} ? ${blog.category.name_cag} : 'Không có'"></td>
+            <td th:text="${blog.category != null ? blog.category.nameCag : 'Không có'}"></td>
             <td class="actions">
                 <a th:href="@{/blogs/{id}(id=${blog.id})}" class="view">Xem</a>
                 <a th:href="@{/blogs/edit/{id}(id=${blog.id})}" class="edit">Sửa</a>

@@ -126,11 +126,11 @@
         <input type="text" th:field="*{author}" required>
 
         <label>Danh mục:</label>
-        <select th:field="*{category.id_cag}">
+        <select th:field="*{category.getIdCag}">
             <option value="" disabled selected>-- Chọn danh mục --</option>
             <option th:each="cat : ${categories}"
-                    th:value="${cat.id_cag}"
-                    th:text="${cat.name_cag}">
+                    th:value="${cat.getIdCag}"
+                    th:text="${cat.getNameCag}">
             </option>
         </select>
 

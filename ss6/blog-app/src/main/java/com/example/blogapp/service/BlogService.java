@@ -55,6 +55,6 @@ public class BlogService implements IBlogService {
     }
     @Override
     public List<Blog> getBlogsByCategory(Integer categoryId) {
-        return repository.findByCategoryId(categoryId);
+        return repository.findByCategory_IdCag(categoryId);
     }
 }

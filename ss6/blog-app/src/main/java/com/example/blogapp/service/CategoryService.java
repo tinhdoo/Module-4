@@ -1,5 +1,6 @@
 package com.example.blogapp.service;
 
+import com.example.blogapp.entity.Blog;
 import com.example.blogapp.entity.Category;
 import com.example.blogapp.repository.ICategoryRepository;
 import org.springframework.stereotype.Service;
@@ -7,11 +8,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoryService {
+public class CategoryService implements ICategoryService {
     private final ICategoryRepository repository;
+
 
     public CategoryService(ICategoryRepository repository) {
         this.repository = repository;
+    }
+
+    @Override
+    public List<Blog> findByCategoryId(Integer id) {
+        return null;
     }
 
     public List<Category> getAllCategories() {
@@ -29,4 +36,5 @@ public class CategoryService {
     public void deleteCategory(Integer id) {
         repository.deleteById(id);
     }
+
 }
