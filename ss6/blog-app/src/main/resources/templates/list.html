@@ -3,29 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Danh sách bài viết</title>
-    <style>
-        /* Reset cơ bản */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>    <style>
         body {
             font-family: "Segoe UI", Arial, sans-serif;
             background: linear-gradient(135deg, #f0f4f8, #d9e4ec);
             padding: 20px;
             color: #333;
         }
-
         h1 {
             text-align: center;
             margin-bottom: 25px;
             color: #1e3d59;
-            font-size: 28px;
-            font-weight: 700;
         }
-
         .container {
             width: 90%;
             max-width: 1100px;
@@ -33,40 +22,19 @@
             background: #fff;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
-
         form {
             display: flex;
             flex-direction: column;
             gap: 12px;
             margin-bottom: 25px;
         }
-
-        form label {
-            font-weight: 600;
-            color: #444;
-        }
-
-        form input[type="text"], form textarea, form select {
-            padding: 10px 12px;
+        form input, form textarea, form select {
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.2s ease;
         }
-
-        form input[type="text"]:focus, form textarea:focus, form select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
-            outline: none;
-        }
-
-        form textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
         form button {
             align-self: flex-start;
             padding: 10px 18px;
@@ -74,88 +42,18 @@
             color: #fff;
             border: none;
             border-radius: 6px;
-            font-size: 14px;
             cursor: pointer;
-            transition: background 0.3s;
         }
-
-        form button:hover {
-            background: #0056b3;
-        }
-
+        form button:hover { background: #0056b3; }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px;
-            overflow: hidden;
-            border-radius: 8px;
+            margin-top: 15px;
         }
-
-        thead {
-            background: #1e3d59;
-            color: #fff;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-        }
-
-        tbody tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        tbody tr:hover {
-            background: #eef3f7;
-        }
-
-        .actions {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .actions a, .actions button {
-            padding: 6px 12px;
-            font-size: 13px;
-            border-radius: 4px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .actions a.view {
-            background: #17a2b8;
-            color: #fff;
-        }
-
-        .actions a.view:hover {
-            background: #117a8b;
-        }
-
-        .actions a.edit {
-            background: #ffc107;
-            color: #212529;
-        }
-
-        .actions a.edit:hover {
-            background: #e0a800;
-        }
-
-        .actions button {
-            background: #dc3545;
-            color: #fff;
-        }
-
-        .actions button:hover {
-            background: #bd2130;
-        }
-
-        .error {
-            color: #d93025;
-            font-size: 12px;
-        }
+        thead { background: #1e3d59; color: #fff; }
+        th, td { padding: 10px; text-align: center; }
+        tbody tr:nth-child(even) { background: #f8f9fa; }
+        .actions a { margin: 0 5px; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -164,27 +62,25 @@
 
 <div class="container">
 
-    <form th:action="@{/blogs}" th:object="${blog}" method="post">
-    <label >Tiêu đề:</label>
-    <input type="text" th:field="*{title}" required/>
-    <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+    <!-- Form thêm blog -->
+    <form id="blog-form">
+        <label>Tiêu đề:</label>
+        <input type="text" id="title" required/>
 
-    <label>Nội dung:</label>
-    <textarea th:field="*{content}" required></textarea>
-    <div class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+        <label>Nội dung:</label>
+        <textarea id="content" required></textarea>
 
-    <label >Tác giả:</label>
-    <input type="text" th:field="*{author}" required/>
-    <div class="error" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
+        <label>Tác giả:</label>
+        <input type="text" id="author" required/>
 
-    <label>Trạng thái:</label>
-    <select th:field="*{status}">
-        <option value="PUBLISHED">Đã xuất bản</option>
-        <option value="DRAFT">Bản nháp</option>
-    </select>
+        <label>Trạng thái:</label>
+        <select id="status">
+            <option value="PUBLISHED">Đã xuất bản</option>
+            <option value="DRAFT">Bản nháp</option>
+        </select>
 
-    <label>Danh mục:</label>
-        <select th:field="*{category}">
+        <label>Danh mục:</label>
+        <select id="categoryId">
             <option value="" disabled selected>-- Chọn danh mục --</option>
             <option th:each="cat : ${categories}"
                     th:value="${cat.idCag}"
@@ -192,7 +88,7 @@
             </option>
         </select>
 
-    <button type="submit">Đăng bài</button>
+        <button type="submit">Đăng bài</button>
     </form>
 
     <!-- Danh sách bài viết -->
@@ -205,25 +101,80 @@
             <th>Hành động</th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:if="${#lists.isEmpty(blogs)}">
-            <td colspan="4">Chưa có bài viết nào.</td>
-        </tr>
-        <tr th:each="blog : ${blogs}">
-            <td th:text="${blog.title}"></td>
-            <td th:text="${#temporals.format(blog.date, 'dd/MM/yyyy')}"></td>
-            <td th:text="${blog.category != null ? blog.category.nameCag : 'Không có'}"></td>
-            <td class="actions">
-                <a th:href="@{/blogs/{id}(id=${blog.id})}" class="view">Xem</a>
-                <a th:href="@{/blogs/edit/{id}(id=${blog.id})}" class="edit">Sửa</a>
-                <a th:href="@{/blogs/delete/{id}(id=${blog.id})}" class="delete">Xoá</a>
-
-            </td>
-        </tr>
+        <tbody id="blog-list">
+        <!-- AJAX sẽ load dữ liệu vào đây -->
         </tbody>
     </table>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Load danh sách blog
+        function loadBlogs() {
+            $.ajax({
+                url: "/api/blogs",
+                method: "GET",
+                success: function (data) {
+                    let rows = "";
+                    if (data.length === 0) {
+                        rows = "<tr><td colspan='4'>Chưa có bài viết nào.</td></tr>";
+                    } else {
+                        data.forEach(function (blog) {
+                            rows += `
+                                <tr>
+                                    <td>${blog.title}</td>
+                                    <td>${blog.date ? blog.date : ""}</td>
+                                    <td>${blog.category ? blog.category.nameCag : "Không có"}</td>
+                                    <td class="actions">
+                                        <a href="/blogs/${blog.id}" class="view">Xem</a>
+                                        <a href="/blogs/edit/${blog.id}" class="edit">Sửa</a>
+                                        <a href="/blogs/delete/${blog.id}" class="delete">Xoá</a>
+                                    </td>
+                                </tr>`;
+                        });
+                    }
+                    $("#blog-list").html(rows);
+                },
+                error: function () {
+                    alert("Không thể tải danh sách blog");
+                }
+            });
+        }
+
+        // Gọi load khi trang mở
+        loadBlogs();
+
+        // Submit form AJAX
+        $("#blog-form").submit(function (e) {
+            e.preventDefault();
+
+            let blogData = {
+                title: $("#title").val(),
+                content: $("#content").val(),
+                author: $("#author").val(),
+                date: new Date().toISOString().split("T")[0], // yyyy-MM-dd
+                status: $("#status").val(),
+                categoryId: $("#categoryId").val()
+            };
+
+            $.ajax({
+                url: "/api/blogs",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(blogData),
+                success: function () {
+                    alert("Đăng bài thành công!");
+                    $("#blog-form")[0].reset();
+                    loadBlogs();
+                },
+                error: function (xhr) {
+                    alert("Lỗi khi đăng bài: " + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
